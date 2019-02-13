@@ -10,7 +10,9 @@ class GildedRose
       unless @specials.include?(item.name)
         normal_update(item)
       end
-      #if item.name != "Aged Brie" and item.name != "Backstage passes"
+      if item.name == "Aged Brie"
+        brie_update(item)
+      end
         #if item.quality > 0
           #if item.name != "Sulfuras, Hand of Ragnaros"
             #item.quality = item.quality - 1
@@ -62,6 +64,14 @@ class GildedRose
     if item.sell_in < 0
       item.quality -= 1
     end
+    item.quality = 0 if item.quality < 0
+  end
+
+  def brie_update(item)
+    unless item.quality > 49
+      item.quality += 1
+    end
+    item.sell_in -= 1
   end
 end
 
